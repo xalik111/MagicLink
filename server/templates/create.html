@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',
+            filename='create/css/style.css') }}">
 </head>
 
 <body>
-    <form action="/" method="post">
+    <form action="/create" method="post">
         <input type="email" name="email" id="email">
         <button type="submit">Create new magic link</button>
     </form>
