@@ -12,6 +12,6 @@ def main():
 def emailform():
     return render_template("create.html")
 
-@app.route('/index/<path:subpath>', methods=['POST'])
+@app.route('/index/<path:subpath>', methods=['GET', 'POST'])
 def index(subpath):
     return 'Subpath %s' % escape(subpath)
