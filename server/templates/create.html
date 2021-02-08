@@ -20,8 +20,8 @@
     <script>
         $(".submit").on("click", function(e) {
             e.preventDefault();
-            let email = $('.email').val();
-            $('#form').attr('action', "/index" + email).submit();
+            let email = $('#email').val();
+            $('#form').attr('action', "/index/" + email).submit();
         });
     </script>
 </body>
