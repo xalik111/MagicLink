@@ -10,16 +10,17 @@
 </head>
 
 <body>
-    <form action="/index" method="post">
+    <form action="/index" method="post" class="form">
         <input type="email" name="email" id="email">
-        <button type="submit">Create new magic link</button>
+        <button type="submit" id="submit">Create new magic link</button>
     </form>
 
     <script src="{{ url_for( 'static', filename='js/jquery-3.5.1.min.js' )
-        }}"></script>
+            }}"></script>
     <script>
-        $("#email").submit(function(e) {
-            this.action = "http://www.w3schools.com";
+        $(".submit").on("click", function(e) {
+            e.preventDefault();
+            $('#form').attr('action', "/test1").submit();
         });
     </script>
 </body>
