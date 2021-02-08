@@ -4,7 +4,6 @@ from flask_socketio import SocketIO
 
 app = Flask(__name__)
 app.secret_key = 'somesecretsalt'
-manager = LoginManager(app)
 async_mode = None
 socketio = SocketIO(app, async_mode=async_mode)
 
