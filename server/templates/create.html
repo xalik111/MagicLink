@@ -11,7 +11,7 @@
 
 <body>
     <form action="" method="post" id="form">
-        <input type="email" name="email" id="email">
+        <input type="email" name="email" id="email" required>
         <button type="submit" class="submit">Create new magic link</button>
     </form>
 
@@ -20,7 +20,8 @@
     <script>
         $(".submit").on("click", function(e) {
             e.preventDefault();
-            $('#form').attr('action', "/test1").submit();
+            let email = $('.email').val();
+            $('#form').attr('action', "/index" + email).submit();
         });
     </script>
 </body>
