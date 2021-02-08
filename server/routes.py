@@ -1,3 +1,4 @@
+from flask import render_template
 from server import app, socketio
 
 
@@ -5,3 +6,8 @@ from server import app, socketio
 @app.route('/')
 def index():
     return "<h1>Welcome to our server !!!!</h1>"
+
+
+@app.route('/create', methods=['GET', 'POST'])
+def emailform():
+    return render_template("create.html")
