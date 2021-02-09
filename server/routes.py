@@ -3,6 +3,8 @@ from server import app, socketio
 from markupsafe import escape
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+import string
+import random
 
 from .models import Users
 
@@ -24,9 +26,9 @@ def index(email):
         return 'This login already exists!'
     except Exception:
         hash_pwd = generate_password_hash('Qwerty123')
-        magiclink="123"
+        magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
-        return 'User %s created' % escape(email)
+        return 'User %s created %s' % escape(email) magiclink
     
 
 @app.route('/afterlogin', methods=['GET', 'POST'])
