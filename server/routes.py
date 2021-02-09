@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template,redirect, url_for
 from server import app, socketio
 from markupsafe import escape
 from flask_login import login_user, logout_user, login_required, current_user
@@ -43,6 +43,7 @@ def afterlogin():
 def magic_link(link):
     try:
         user = Users.select().where(Users.magiclink == link).get()
-        return user.login
+        login_user(user)
+        return redirect(url_for('afterlogin'))
     except Exception:
         pass
