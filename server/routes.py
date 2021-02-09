@@ -38,14 +38,14 @@ def afterlogin():
     if current_user.is_authenticated:
         return render_template('afterlogin.html')
     else:
-        return 'Your not logged in'
+        return 'You don\'t login'
 
 @app.route('/ml/<string:link>', methods=['GET', 'POST'])
 def magic_link(link):
     try:
         user = Users.select().where(Users.magiclink == link).get()
         login_user(user)
-        user.update(url_counter=user.url_counter+1).execute()
+        user.update(url_counter=user[0].url_counter+1).save()
         return redirect(url_for('afterlogin'))
     except Exception as ex:
         return str(ex)
