@@ -10,7 +10,7 @@ sqlite_db = SqliteDatabase('app.db', pragmas={
     'cache_size': -1024 * 64})
 
 class Users(Model, UserMixin):
-    id = IntegerField()
+    id = AutoField()
     login = TextField(unique=True)
     password = TextField()
     magiclink = TextField()
@@ -25,6 +25,3 @@ def load_user(user_id):
         return Users.get(user_id)
     except Exception as identifier:
         print(identifier)
-
-with sqlite_db:
-    sqlite_db.create_tables([Users])
