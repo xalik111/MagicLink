@@ -49,4 +49,4 @@ def magic_link(link):
         user.execute()
         return redirect(url_for('afterlogin'))
     except Exception as ex:
-        return ex
+        return str(ex)
