@@ -28,7 +28,6 @@ def index(email):
         hash_pwd = generate_password_hash('Qwerty123')
         magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
-        first = "User %s created." % escape
         return 'User %s created %s' % (escape(email), magiclink)
     
 
@@ -39,3 +38,11 @@ def afterlogin():
         return render_template('afterlogin.html')
     else:
         return 'Your not logged in'
+
+@app.route('/ml/<string:link>', methods=['GET', 'POST'])
+def magic_link(link):
+    try:
+        user = Users.select().where(Users.magiclink == link).get()
+        return user.login
+    except Exception:
+        pass
