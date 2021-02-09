@@ -22,8 +22,8 @@ def emailform():
 def index(email):
     login = escape(email)
     try:
-        Users.select().where(Users.login == login).get()
-        return 'This login already exists!'
+        user = Users.select().where(Users.login == login).get()
+        return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
     except Exception:
         hash_pwd = generate_password_hash('Qwerty123')
         magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
