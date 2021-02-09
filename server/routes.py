@@ -1,6 +1,7 @@
 from flask import render_template
 from server import app, socketio
 from markupsafe import escape
+from flask_login import login_user, logout_user, login_required, current_user
 
 # A welcome message to test our server
 @app.route('/')
