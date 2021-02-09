@@ -45,7 +45,7 @@ def magic_link(link):
     try:
         user = Users.select().where(Users.magiclink == link).get()
         login_user(user)
-        return user.url_counter
+        return str(user.url_counter)
 """         query = user.update(url_counter=user.url_counter+1)
         query.execute()
         return redirect(url_for('afterlogin')) """
