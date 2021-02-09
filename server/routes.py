@@ -48,5 +48,5 @@ def magic_link(link):
         user.update(url_counter=user.url_counter+1)
         user.execute()
         return redirect(url_for('afterlogin'))
-    except Exception:
-        pass
+    except Exception as ex:
+        return ex
