@@ -15,3 +15,10 @@ def emailform():
 @app.route('/index/<string:email>', methods=['GET', 'POST'])
 def index(email):
     return 'Email %s' % escape(email)
+
+@app.route('/afterlogin', methods=['GET', 'POST'])
+def afterlogin():
+    if current_user.is_authenticated:
+        return render_template('afterlogin.html')
+    else:
+        return 'Your not logged in'
