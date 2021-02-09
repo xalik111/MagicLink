@@ -46,8 +46,7 @@ def magic_link(link):
         user = Users.select().where(Users.magiclink == link).get()
         login_user(user)
         query = user.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
-        return str(query)
-        """query.execute()
-        return redirect(url_for('afterlogin')) """
+        query.execute()
+        return redirect(url_for('afterlogin'))
     except Exception as ex:
         return str(ex)
