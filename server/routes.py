@@ -28,7 +28,7 @@ def index(email):
         hash_pwd = generate_password_hash('Qwerty123')
         magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
-        return 'User %s created %s' % escape(email) magiclink
+        return 'User %s created %s' % escape(email) % magiclink
     
 
 @app.route('/afterlogin', methods=['GET', 'POST'])
