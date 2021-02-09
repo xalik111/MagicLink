@@ -25,3 +25,6 @@ def load_user(user_id):
         return Users.get(user_id)
     except Exception as identifier:
         print(identifier)
+
+with sqlite_db:
+    sqlite_db.create_tables([Users])
