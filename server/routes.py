@@ -12,16 +12,13 @@ from sendgrid.helpers.mail import Content, Email, Mail
 from .models import Users
 
 sg = sendgrid.SendGridAPIClient(
-    apikey=os.environ.get("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")
+    apikey="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"
 )
-
-
 
 # A welcome message to test our server
 @app.route('/')
 def main():
     return "<h1>Welcome to our server!!!!</h1>"
-
 
 @app.route('/create', methods=['GET', 'POST'])
 def emailform():
