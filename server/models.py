@@ -18,6 +18,7 @@ class Users(Model, UserMixin):
 
     class Meta:
         database = sqlite_db
+        
 
 @manager.user_loader
 def load_user(user_id):
