@@ -47,16 +47,7 @@ def magic_link(link):
         login_user(user)
 
         area = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
-        m = area.save()
-
-        user = Users.select().where(Users.magiclink == link).get()
-
-
-        return str(user.url_counter)
-        #user[0].url_counter = user[0].url_counter + 1
-        #user[0].save()
-        #query = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
-        #query.execute()
+        m = area.execute()
         return redirect(url_for('afterlogin'))
     except Exception as ex:
         return str(ex)
