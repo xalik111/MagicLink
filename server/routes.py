@@ -5,13 +5,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 import string
 import random
-import os
-import sendgrid
-from sendgrid.helpers.mail import Content, Email, Mail
 
 from .models import Users, sg
-
-
 
 # A welcome message to test our server
 @app.route('/')
@@ -32,15 +27,6 @@ def index(email):
         hash_pwd = generate_password_hash('Qwerty123')
         magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
-
-        from_email = Email("magiclinktest@herokuapp.com")
-        to_email = Email(login)
-        subject = "Email for magiclink"
-        content = Content(
-            "text/plain", "This is your magic link: %s" % "http://magiclinktest.herokuapp.com/ml/" + magiclink
-        )
-        Mail(from_email, subject, to_email, content)
-
         return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
         #return 'User %s created %s' % (escape(email), magiclink)
     
