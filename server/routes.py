@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import string
 import random
 
-from .models import Users, sg
+from .models import Users
 
 # A welcome message to test our server
 @app.route('/')
