@@ -51,3 +51,9 @@ def magic_link(link):
         return redirect(url_for('afterlogin'))
     except Exception as ex:
         return str(ex)
+
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('afterlogin'))
