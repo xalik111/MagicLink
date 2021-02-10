@@ -15,8 +15,11 @@ mccabe==0.6.1
 peewee==3.14.1
 pylint==2.6.0
 python-engineio==4.0.0
+python-http-client==3.3.1
 python-socketio==5.0.4
+sendgrid==6.5.0
 six==1.15.0
+starkbank-ecdsa==1.1.0
 toml==0.10.2
 Werkzeug==1.0.1
 wrapt==1.12.1
