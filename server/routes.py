@@ -47,8 +47,8 @@ def magic_link(link):
         login_user(user)
 
         area = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
-        area.execute()
-
+        m = area.execute()
+        return str(m)
         #user[0].url_counter = user[0].url_counter + 1
         #user[0].save()
         #query = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
