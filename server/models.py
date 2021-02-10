@@ -1,8 +1,14 @@
 from flask_login import UserMixin
 from peewee import SqliteDatabase, IntegerField, CharField, TextField, \
     BigIntegerField, Model, AutoField, DateTimeField, ForeignKeyField
+import sendgrid
 
 from server import manager
+
+
+sg = sendgrid.SendGridAPIClient(
+    apikey="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"
+)
 
 # SQLite database using WAL journal mode and 64MB cache.
 sqlite_db = SqliteDatabase('app.db', pragmas={

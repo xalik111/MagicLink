@@ -9,11 +9,9 @@ import os
 import sendgrid
 from sendgrid.helpers.mail import Content, Email, Mail
 
-from .models import Users
+from .models import Users, sg
 
-sg = sendgrid.SendGridAPIClient(
-    apikey="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"
-)
+
 
 # A welcome message to test our server
 @app.route('/')
@@ -41,7 +39,7 @@ def index(email):
         content = Content(
             "text/plain", "This is your magic link: %s" % "http://magiclinktest.herokuapp.com/ml/" + magiclink
         )
-        mail = Mail(from_email, subject, to_email, content)
+        Mail(from_email, subject, to_email, content)
 
         return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
         #return 'User %s created %s' % (escape(email), magiclink)
