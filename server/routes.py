@@ -22,7 +22,7 @@ def main():
 @app.route("/mail")
 def send_mail():
     sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-    from_email = Email("magiclinktest@heroku.com")
+    from_email = Email("xalik@meta.ua")
     to_email = To("xalikxalik44@gmail.com")
     subject = "Sending with SendGrid is Fun"
     content = Content("text/plain", "and easy to do anywhere, even with Python")
@@ -46,7 +46,7 @@ def index(email):
         magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
         sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-        from_email = Email("magiclinktest@heroku.com")
+        from_email = Email("xalik@meta.ua")
         to_email = To(str(login))
         subject = "Magic Link"
         content = Content("text/plain", "Your magic link is %s" % magiclink)
