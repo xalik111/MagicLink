@@ -9,7 +9,7 @@ from markupsafe import escape
 from sendgrid.helpers.mail import *
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from server import app, mail, socketio
+from server import app, socketio
 
 from .models import Users
 
