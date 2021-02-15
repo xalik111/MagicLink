@@ -18,7 +18,7 @@ def main():
     return "<h1>Welcome to our server!!!!</h1>"
 
 @app.route("/mail")
-def index():
+def mail():
    msg = Message('Hello', sender = 'xalikxalik44@gmail.com', recipients = ['xalikxalik44@gmail.com'])
    msg.body = "Hello Flask message sent from Flask-Mail"
    mail.send(msg)
