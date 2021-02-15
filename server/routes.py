@@ -19,18 +19,6 @@ from .models import Users
 def main():
     return "<h1>Welcome to our server!!!!</h1>"
 
-@app.route("/mail")
-def send_mail():
-    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-    from_email = Email("xalik@meta.ua")
-    to_email = To("xalikxalik44@gmail.com")
-    subject = "Sending with SendGrid is Fun"
-    content = Content("text/plain", "and easy to do anywhere, even with Python")
-    mail = Mail(from_email, to_email, subject, content)
-    response = sg.client.mail.send.post(request_body=mail.get())
-    return str(response.status_code)
-
-
 @app.route('/create', methods=['GET', 'POST'])
 def emailform():
     return render_template("create.html")
@@ -45,6 +33,13 @@ def index(email):
         hash_pwd = generate_password_hash('Qwerty123')
         magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
+        sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
+        from_email = Email("magiclinktest@heroku.com")
+        to_email = To(login)
+        subject = "Magic Link"
+        content = Content("text/plain", "Your magic link is %s" % magiclink)
+        mail = Mail(from_email, to_email, subject, content)
+        response = sg.client.mail.send.post(request_body=mail.get())
         return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
         #return 'User %s created %s' % (escape(email), magiclink)
     
