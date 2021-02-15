@@ -49,7 +49,7 @@ def index(email):
         from_email = Email("xalik@meta.ua")
         to_email = To(str(login))
         subject = "Magic Link"
-        content = Content("text/plain", "Your magic link is %s" % magiclink)
+        content = Content("text/plain", "Your magic link is http://magiclinktest.herokuapp.com/ml/%s" % magiclink)
         mail = Mail(from_email, to_email, subject, content)
         response = sg.client.mail.send.post(request_body=mail.get())
         return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
