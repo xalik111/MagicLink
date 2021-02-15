@@ -1,14 +1,15 @@
+import os
 import random
 import string
 
+import sendgrid
 from flask import redirect, render_template, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from markupsafe import escape
-from werkzeug.security import check_password_hash, generate_password_hash
-import sendgrid
 from sendgrid.helpers.mail import *
+from werkzeug.security import check_password_hash, generate_password_hash
 
-from server import app, socketio, mail
+from server import app, mail, socketio
 
 from .models import Users
 
