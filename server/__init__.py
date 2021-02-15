@@ -9,12 +9,15 @@ app.secret_key = 'somesecretsalt'
 manager = LoginManager(app)
 async_mode = None
 socketio = SocketIO(app, async_mode=async_mode)
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'xalikxalik44@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Awesomest!(98'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config.update(dict(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'xalikxalik44@gmail.com',
+    MAIL_PASSWORD = 'Awesomest!(98',
+))
 
 
 from server import models, routes
