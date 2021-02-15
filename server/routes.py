@@ -38,6 +38,16 @@ def emailform():
 @app.route('/index/<string:email>', methods=['GET', 'POST'])
 def index(email):
     login = escape(email)
+
+    user = Users.get_or_none(Users.login == login)
+    if user is not None:
+    # found user, do something with it
+        return 'founded'
+    else:
+        return 'not found'
+
+
+
     try:
         user = Users.select().where(Users.login == login).get()
         return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
