@@ -15,7 +15,6 @@ app.config['MAIL_USERNAME'] = 'xalikxalik44@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Awesomest!(98'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
 
 
 from server import models, routes
