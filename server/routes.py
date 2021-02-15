@@ -13,23 +13,9 @@ from server import app, mail, socketio
 
 from .models import Users
 
-
-# A welcome message to test our server
 @app.route('/')
 def main():
     return "<h1>Welcome to our server!!!!</h1>"
-
-@app.route("/mail")
-def send_mail():
-    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-    from_email = Email("xalik@meta.ua")
-    to_email = To("xalikxalik44@gmail.com")
-    subject = "Sending with SendGrid is Fun"
-    content = Content("text/plain", "and easy to do anywhere, even with Python")
-    mail = Mail(from_email, to_email, subject, content)
-    response = sg.client.mail.send.post(request_body=mail.get())
-    return str(response.status_code)
-
 
 @app.route('/create', methods=['GET', 'POST'])
 def emailform():
@@ -38,7 +24,6 @@ def emailform():
 @app.route('/index/<string:email>', methods=['GET', 'POST'])
 def index(email):
     login = escape(email)
-
     user = Users.get_or_none(Users.login == login)
     if user is not None:
         return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
@@ -71,8 +56,8 @@ def magic_link(link):
     try:
         user = Users.select().where(Users.magiclink == link).get()
         login_user(user)
-        area = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
-        area.execute()
+        count = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
+        count.execute()
         return redirect(url_for('afterlogin'))
     except Exception as ex:
         return str(ex)
