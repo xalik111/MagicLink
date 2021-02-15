@@ -1,17 +1,29 @@
-from flask import render_template,redirect, url_for
-from server import app, socketio
-from markupsafe import escape
-from flask_login import login_user, logout_user, login_required, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
-import string
 import random
+import string
+
+from flask import redirect, render_template, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from markupsafe import escape
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_mail import Mail, Message
+
+from server import app, socketio, mail
 
 from .models import Users
+
 
 # A welcome message to test our server
 @app.route('/')
 def main():
     return "<h1>Welcome to our server!!!!</h1>"
+
+@app.route("/mail")
+def index():
+   msg = Message('Hello', sender = 'xalikxalik44@gmail.com', recipients = ['xalikxalik44@gmail.com'])
+   msg.body = "Hello Flask message sent from Flask-Mail"
+   mail.send(msg)
+   return "Sent"
+
 
 @app.route('/create', methods=['GET', 'POST'])
 def emailform():

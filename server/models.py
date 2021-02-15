@@ -1,6 +1,7 @@
 from flask_login import UserMixin
-from peewee import SqliteDatabase, IntegerField, CharField, TextField, \
-    BigIntegerField, Model, AutoField, DateTimeField, ForeignKeyField
+from peewee import (AutoField, BigIntegerField, CharField, DateTimeField,
+                    ForeignKeyField, IntegerField, Model, SqliteDatabase,
+                    TextField)
 
 from server import manager
 
