@@ -27,7 +27,8 @@ def send_mail():
     subject = "Sending with SendGrid is Fun"
     content = Content("text/plain", "and easy to do anywhere, even with Python")
     mail = Mail(from_email, to_email, subject, content)
-    return 'sent'
+    response = sg.client.mail.send.post(request_body=mail.get())
+    return str(response.status_code)
 
 
 @app.route('/create', methods=['GET', 'POST'])
