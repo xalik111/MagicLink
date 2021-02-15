@@ -5,7 +5,8 @@ from flask import redirect, render_template, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_mail import Mail, Message
+import sendgrid
+from sendgrid.helpers.mail import *
 
 from server import app, socketio, mail
 
@@ -19,10 +20,13 @@ def main():
 
 @app.route("/mail")
 def send_mail():
-   msg = Message('Hello', sender = 'xalikxalik44@gmail.com', recipients = ['xalikxalik44@gmail.com'])
-   msg.body = "Hello Flask message sent from Flask-Mail"
-   mail.send(msg)
-   return "Sent"
+    sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
+    from_email = Email("xalik@meta.ua")
+    to_email = To("xalikxalik44@gmail.com")
+    subject = "Sending with SendGrid is Fun"
+    content = Content("text/plain", "and easy to do anywhere, even with Python")
+    mail = Mail(from_email, to_email, subject, content)
+    return 'sent'
 
 
 @app.route('/create', methods=['GET', 'POST'])
