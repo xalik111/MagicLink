@@ -41,30 +41,22 @@ def index(email):
 
     user = Users.get_or_none(Users.login == login)
     if user is not None:
-    # found user, do something with it
-        return 'founded'
-    else:
-        return 'not found'
-
-
-
-    try:
-        user = Users.select().where(Users.login == login).get()
         return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
-    except Exception:
-        hash_pwd = generate_password_hash('Qwerty123')
-        magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
-        sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-        from_email = Email("xalik@meta.ua")
-        to_email = To(str(login))
-        subject = "Magic Link"
-        content = Content("text/plain", "Your magic link is http://magiclinktest.herokuapp.com/ml/%s" % magiclink)
-        mail = Mail(from_email, to_email, subject, content)
-        response = sg.client.mail.send.post(request_body=mail.get())
-        return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
-        #return 'User %s created %s' % (escape(email), magiclink)
-    
+    else:
+        try:
+            hash_pwd = generate_password_hash('Qwerty123')
+            magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+            Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
+            sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
+            from_email = Email("xalik@meta.ua")
+            to_email = To(str(login))
+            subject = "Magic Link"
+            content = Content("text/plain", "Your magic link is http://magiclinktest.herokuapp.com/ml/%s" % magiclink)
+            mail = Mail(from_email, to_email, subject, content)
+            response = sg.client.mail.send.post(request_body=mail.get())
+            return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
+        except Exception:
+            return 'something went wrong'
 
 @app.route('/afterlogin', methods=['GET', 'POST'])
 @login_required
