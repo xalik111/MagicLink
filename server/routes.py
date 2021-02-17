@@ -27,13 +27,13 @@ def changestatus():
     user = Users.get_or_none(Users.login == login)
     if user is not None:
         if user.is_enable == 'Yes':
-            q = (Users.Update({Users.is_enable: 'No'}).where(User.login==login))
-            q.execute()
+            user.is_enable = 'No'
+            user.save()
             #change to no
             return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
         else:
-            q = (Users.Update({Users.is_enable: 'Yes'}).where(User.login==login))
-            q.execute()
+            user.is_enable = 'Yes'
+            user.save()
             #change to yes
             return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
     else:
