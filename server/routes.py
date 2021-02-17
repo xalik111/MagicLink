@@ -21,7 +21,7 @@ def main():
 def emailform():
     return render_template("create.html")
 
-@app.route('/changestatus')
+@app.route('/changestatus', methods=['GET', 'POST'])
 def changestatus():
     email =  request.form["email"]
     return str(email) 
