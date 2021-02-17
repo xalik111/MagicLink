@@ -30,12 +30,12 @@ def changestatus():
             user.is_enable = 'No'
             user.save()
             #change to no
-            return redirect(url_for('index'))
+            return redirect(url_for('index', email=user.login))
         else:
             user.is_enable = 'Yes'
             user.save()
             #change to yes
-            return redirect(url_for('index'))
+            return redirect(url_for('index', email=user.login))
     else:
         return 'wow, don\'t know this user'
 
