@@ -21,6 +21,11 @@ def main():
 def emailform():
     return render_template("create.html")
 
+@app.route('/changestatus')
+def changestatus():
+    email =  request.form["email"]
+    return str(email) 
+
 @app.route('/index/<string:email>', methods=['GET', 'POST'])
 def index(email):
     login = escape(email)
@@ -31,7 +36,7 @@ def index(email):
         try:
             hash_pwd = generate_password_hash('Qwerty123')
             magiclink = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-            Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
+            Users.create(login=login, password=hash_pwd, magiclink=magiclink, url_counter=0, is_enable='Yes')
             sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
             from_email = Email("xalik@meta.ua")
             to_email = To(str(login))

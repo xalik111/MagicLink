@@ -15,6 +15,7 @@ class Users(Model, UserMixin):
     password = TextField()
     magiclink = TextField()
     url_counter = IntegerField()
+    is_enable = TextField()
 
     class Meta:
         database = sqlite_db
