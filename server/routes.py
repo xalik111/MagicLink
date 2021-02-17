@@ -30,12 +30,12 @@ def changestatus():
             user.is_enable = 'No'
             user.save()
             #change to no
-            return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+            return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter, is_enable=user.is_enable)
         else:
             user.is_enable = 'Yes'
             user.save()
             #change to yes
-            return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+            return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter, is_enable=user.is_enable)
     else:
         return 'wow, don\'t know this user'
 
