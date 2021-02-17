@@ -3,7 +3,7 @@ import random
 import string
 
 import sendgrid
-from flask import redirect, render_template, url_for
+from flask import redirect, render_template, url_for, request
 from flask_login import current_user, login_required, login_user, logout_user
 from markupsafe import escape
 from sendgrid.helpers.mail import *
