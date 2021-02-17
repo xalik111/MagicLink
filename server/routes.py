@@ -23,15 +23,29 @@ def emailform():
 
 @app.route('/changestatus', methods=['GET', 'POST'])
 def changestatus():
-    email =  request.form["email"]
-    return str(email) 
+    login =  request.form["email"]
+    user = Users.get_or_none(Users.login == login)
+    if user is not None:
+        if user.is_enable == 'Yes':
+            q = (Users.Update({Users.is_enable: 'No'}).where(User.login==login))
+            q.execute()
+            #change to no
+            return render_template(('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+        else:
+            q = (Users.Update({Users.is_enable: 'Yes'}).where(User.login==login))
+            q.execute()
+            #change to yes
+            return render_template(('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+    else:
+        return 'wow, don\'t know this user'
+
 
 @app.route('/index/<string:email>', methods=['GET', 'POST'])
 def index(email):
     login = escape(email)
     user = Users.get_or_none(Users.login == login)
     if user is not None:
-        return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+        return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter, is_enable=user.is_enable)
     else:
         try:
             hash_pwd = generate_password_hash('Qwerty123')
@@ -44,7 +58,7 @@ def index(email):
             content = Content("text/plain", "Your magic link is http://magiclinktest.herokuapp.com/ml/%s" % magiclink)
             mail = Mail(from_email, to_email, subject, content)
             response = sg.client.mail.send.post(request_body=mail.get())
-            return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0)
+            return render_template('index.html', email=login, password=hash_pwd, magiclink=magiclink, url_counter=0, is_enable='Yes')
         except Exception:
             return 'something went wrong'
 
@@ -60,10 +74,13 @@ def afterlogin():
 def magic_link(link):
     try:
         user = Users.select().where(Users.magiclink == link).get()
-        login_user(user)
-        count = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
-        count.execute()
-        return redirect(url_for('afterlogin'))
+        if user.is_enable == 'Yes':
+            login_user(user)
+            count = Users.update(url_counter=user.url_counter+1).where(Users.magiclink == link)
+            count.execute()
+            return redirect(url_for('afterlogin'))
+        else:
+            return 'This link is expired'
     except Exception as ex:
         return str(ex)
 
