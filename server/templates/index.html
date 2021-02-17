@@ -29,7 +29,15 @@
             </tr>
             <tr>
                 <th>Is enable</th>
-                <th>{{is_enable}}</th>
+                {% if is_enable == 'Yes' %}
+                <th>
+                    <font color="#00ff44">{{is_enable}}</font>
+                </th>
+                {% else %}
+                <th>
+                    <font color="#ff0000">{{is_enable}}</font>
+                </th>
+                {% endif %}
             </tr>
         </table>
 
