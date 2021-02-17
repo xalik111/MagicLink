@@ -42,8 +42,9 @@
         </table>
 
         <form action="/changestatus" method="post">
-            <input type="hidden" name="email" value="{{email}}">
-            <button type="submit">Disable this link</button>
+            <input type="hidden" name="email" value="{{email}}"> {% if is_enable == 'Yes' %}
+            <button type="submit">Disable this link</button> {% else %}
+            <button type="submit">Enable this link</button> {% endif %}
         </form>
 
     </div>
