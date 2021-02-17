@@ -30,12 +30,12 @@ def changestatus():
             q = (Users.Update({Users.is_enable: 'No'}).where(User.login==login))
             q.execute()
             #change to no
-            return render_template(('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+            return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
         else:
             q = (Users.Update({Users.is_enable: 'Yes'}).where(User.login==login))
             q.execute()
             #change to yes
-            return render_template(('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
+            return render_template('index.html', email=user.login, password=user.password, magiclink=user.magiclink, url_counter=user.url_counter)
     else:
         return 'wow, don\'t know this user'
 
